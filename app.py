@@ -3,10 +3,19 @@ import streamlit as st
 import requests
 from PIL import Image
 import io
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 # API configuration
 API_URL = "https://try-on-diffusion.p.rapidapi.com/try-on-file"
-API_KEY = "18fef92297msh675c7e247b5dfd1p1efa12jsn09f0ee610d3e"  # Replace with your RapidAPI key
+API_KEY = os.getenv("RAPIDAPI_KEY")  # Load API key from .env file
+if not API_KEY:
+    st.error("API key not found in .env file. Please set RAPIDAPI_KEY.")
+    st.stop()
+
 HEADERS = {
     "x-rapidapi-host": "try-on-diffusion.p.rapidapi.com",
     "x-rapidapi-key": API_KEY
